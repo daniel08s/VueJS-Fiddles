@@ -3,19 +3,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="../scripts/vue.js"></script>
+    <style>
+      #container {
+        display: flex;           /* establish flex container */
+        flex-direction: column;  /* make main axis vertical */
+        justify-content: center; /* center items vertically, in this case */
+        align-items: center;     /* center items horizontally, in this case */
+        height: 300px;
+      }
+
+      .box {
+        width: 300px;
+        margin: 5px;
+        text-align: center;     /* will center text in <p>, which is not a flex item */
+     }
+    </style>
 </head>
 <body>
   <div id="app">
-    <h1 v-once>{{ title }}</h1>
-    <p>{{ sayHello() }} - <a v-bind:href="link">Twitter</a></p>
-    <hr>
-    <p v-html="finishedLink"></p>
-    <hr>
-    <button v-on:click="increase">+</button>
-    <button v-on:click="decrease">-</button>
-    <p>{{ counter }}</p>
+    <div class="jumbotron">
+      <h1 v-once>{{ title }}</h1>
+      <p>{{ sayHello() }} - <a v-bind:href="link">Twitter</a></p>
+      <hr>
+      <p v-html="finishedLink"></p>
+      <hr>
+      <div class="d-inline-flex p-4" style="display: flex; align-items:center;">
+        <button class="btn btn-primary" v-on:click="increase">
+          Increase <span class="badge badge-light">+</span>
+        </button>
+        <button class="btn btn-primary ml-1" v-on:click="decrease">
+            Decrease <span class="badge badge-light">-</span>
+        </button>
+        <span class="ml-1">Count: <span class="badge badge-light">{{ counter }}</span></span>
+      </div>
+      <div id="container"
+        class="border border-primary"
+        v-on:mousemove="updateCoordinates"
+        style="max-width: 500px; min-height: 100px; text-align: center; display:flex; align-items: center;"
+      ><p class="box">Coordinates: {{ x }} / {{ y }}</p>
+      </div>
+    </div>
   </div>
   <script>
     new Vue({
@@ -25,6 +54,8 @@
         link: 'http://twitter.com/danielsousa08',
         finishedLink: '<a href="http://github.com/iskilled">Github</a>',
         counter: 0,
+        x: 0,
+        y: 0,
       },
       methods: {
         sayHello() {
@@ -32,11 +63,15 @@
           return this.title;
         },
         increase() {
-          return ++this.counter;
+          ++this.counter;
         },
         decrease() {
-          return --this.counter;
+          --this.counter;
         },
+        updateCoordinates(event) {
+          this.x = event.clientX;
+          this.y = event.clientY;
+        }
       },
     });
   </script>
