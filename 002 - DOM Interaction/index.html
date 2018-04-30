@@ -39,14 +39,22 @@
         <button class="btn btn-xs btn-primary ml-1" v-on:click="setCounter(0, $event)">Reset</button>
         <span class="ml-1">Count: <span class="badge badge-light">{{ counter }}</span></span>
       </div>
+      <hr>
+      <!-- events -->
       <div id="container"
         class="border border-primary"
         v-on:mousemove="updateCoordinates"
         style="max-width: 500px; min-height: 100px; text-align: center; display:flex; align-items: center;"
-      ><p class="box">
-        Coordinates: {{ x }} / {{ y }}
-        <p class="box border border-secondary" v-on:mousemove.stop="">DEAD SPOT</p>
-      </p>
+      >
+        <p class="box">
+          Coordinates: {{ x }} / {{ y }}
+          <p class="box border border-secondary" v-on:mousemove.stop="">DEAD SPOT</p>
+        </p>
+        <!-- keyboard events -->
+        <input
+          type="text"
+          v-on:keyup.enter.space="alertMe"
+          placeholder="alerts on spaces or enters">
       </div>
     </div>
   </div>
@@ -82,6 +90,9 @@
         updateCoordinates(event) {
           this.x = event.clientX;
           this.y = event.clientY;
+        },
+        alertMe() {
+          alert('Alert!');
         },
       },
     });
