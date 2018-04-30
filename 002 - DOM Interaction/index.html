@@ -10,6 +10,8 @@
   <div id="app">
     <h1 v-once>{{ title }}</h1>
     <p>{{ sayHello() }} - <a v-bind:href="link">Twitter</a></p>
+    <hr>
+    <p v-html="finishedLink"></p>
   </div>
   <script>
     new Vue({
@@ -17,6 +19,7 @@
       data: {
         title: 'Hello World!',
         link: 'http://twitter.com/danielsousa08',
+        finishedLink: '<a href="http://github.com/iskilled">Github</a>',
       },
       methods: {
         sayHello() {
