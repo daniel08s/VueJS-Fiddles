@@ -43,7 +43,10 @@
         class="border border-primary"
         v-on:mousemove="updateCoordinates"
         style="max-width: 500px; min-height: 100px; text-align: center; display:flex; align-items: center;"
-      ><p class="box">Coordinates: {{ x }} / {{ y }}</p>
+      ><p class="box">
+        Coordinates: {{ x }} / {{ y }}
+        <p class="box border border-secondary" v-on:mousemove.stop="">DEAD SPOT</p>
+      </p>
       </div>
     </div>
   </div>
@@ -79,7 +82,7 @@
         updateCoordinates(event) {
           this.x = event.clientX;
           this.y = event.clientY;
-        }
+        },
       },
     });
   </script>
