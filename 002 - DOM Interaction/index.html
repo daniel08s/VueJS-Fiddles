@@ -12,6 +12,10 @@
     <p>{{ sayHello() }} - <a v-bind:href="link">Twitter</a></p>
     <hr>
     <p v-html="finishedLink"></p>
+    <hr>
+    <button v-on:click="increase">+</button>
+    <button v-on:click="decrease">-</button>
+    <p>{{ counter }}</p>
   </div>
   <script>
     new Vue({
@@ -20,12 +24,19 @@
         title: 'Hello World!',
         link: 'http://twitter.com/danielsousa08',
         finishedLink: '<a href="http://github.com/iskilled">Github</a>',
+        counter: 0,
       },
       methods: {
         sayHello() {
           this.title = 'Hello!';
           return this.title;
-        }
+        },
+        increase() {
+          return ++this.counter;
+        },
+        decrease() {
+          return --this.counter;
+        },
       },
     });
   </script>
