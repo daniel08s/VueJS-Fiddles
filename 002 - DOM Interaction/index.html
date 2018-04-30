@@ -34,8 +34,9 @@
           Increase <span class="badge badge-light">+</span>
         </button>
         <button class="btn btn-primary ml-1" v-on:click="decrease">
-            Decrease <span class="badge badge-light">-</span>
+          Decrease <span class="badge badge-light">-</span>
         </button>
+        <button class="btn btn-xs btn-primary ml-1" v-on:click="setCounter(0, $event)">Reset</button>
         <span class="ml-1">Count: <span class="badge badge-light">{{ counter }}</span></span>
       </div>
       <div id="container"
@@ -67,6 +68,13 @@
         },
         decrease() {
           --this.counter;
+        },
+        setCounter(value, event) {
+          // easter egg
+          if (event.shiftKey)
+            this.counter += 100;
+          else
+            this.counter = value;
         },
         updateCoordinates(event) {
           this.x = event.clientX;
