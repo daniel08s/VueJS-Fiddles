@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="">
+    <script src="../scripts/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p>{{ sayHello() }} - <a v-bind:href="link">Twitter</a></p>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        title: 'Hello World!',
+        link: 'http://twitter.com/danielsousa08',
+      },
+      methods: {
+        sayHello() {
+          return this.title;
+        }
+      },
+    });
+  </script>
+</body>
+</html>
