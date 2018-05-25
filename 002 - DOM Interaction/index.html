@@ -45,6 +45,38 @@
       grid-column: 1 / 4;
     }
 
+    @media screen and (max-width: 790px) {
+      .grid-container {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
+      }
+      
+      .grid-item-intro {
+        grid-row: 1 / 2;
+        grid-column: 1 / 2;
+      }
+
+      .grid-item-counter {
+        grid-row: 2 / 3;
+        grid-column: 1 / 2;
+        text-align: right;
+      }
+
+      .grid-item-coords {
+        align-self: center;
+        text-justify: center;
+        grid-row: 3 / 5;
+        grid-column: 1 / 2;
+      }
+
+      .grid-item-name {
+        grid-row: 5 / 6;
+        grid-column: 1 / 2;
+      }
+    }
+
     .centered {
       display: flex;
       flex-direction: column;
@@ -96,7 +128,7 @@
           v-on:keyup.enter.space="alertMe"
           placeholder="alerts on spaces or enters">
       </div>
-      <div class="centered border border-warning">
+      <div class="centered border border-warning grid-item-name">
         <input type="text" v-model="name" style="text-align: center;">
         <p>{{ name }}</p>
       </div>
