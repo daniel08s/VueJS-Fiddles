@@ -19,32 +19,72 @@
         margin: 5px;
         text-align: center;     /* will center text in <p>, which is not a flex item */
      }
+
+     .grid-container {
+      display: grid;
+      grid-gap: 5px;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: repeat(6, 1fr);
+    }
+
+    .grid-item-intro {
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+    }
+
+    .grid-item-counter {
+      grid-row: 1 / 2;
+      grid-column: 2 / 4;
+      text-align: right;
+    }
+
+    .grid-item-coords {
+      align-self: center;
+      text-justify: center;
+      grid-row: 2 / 4;
+      grid-column: 1 / 4;
+    }
+
+    .centered {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
     </style>
 </head>
 <body>
   <div id="app">
-    <div class="jumbotron">
-      <h1 v-once>{{ title }}</h1>
-      <p>{{ sayHello() }} - <a v-bind:href="link">Twitter</a></p>
-      <hr>
-      <p v-html="finishedLink"></p>
-      <hr>
-      <div class="d-inline-flex p-4" style="display: flex; align-items:center;">
-        <button class="btn btn-primary" v-on:click="increase">
+    <div class="jumbotron grid-container">
+      <div class="grid-item-intro border border-info">
+        <h1 v-once>{{ title }}</h1>
+        <p>{{ sayHello() }} - <a v-bind:href="link">Twitter</a></p>
+        <p v-html="finishedLink"></p>
+      </div>
+      <div class="grid-item-counter border border-secondary">
+        <button class="btn btn-primary increaseButton" v-on:click="counter++">
           Increase <span class="badge badge-light">+</span>
         </button>
-        <button class="btn btn-primary ml-1" v-on:click="decrease">
+        <button class="btn btn-primary decreaseButton" v-on:click="counter--">
           Decrease <span class="badge badge-light">-</span>
         </button>
-        <button class="btn btn-xs btn-primary ml-1" v-on:click="setCounter(0, $event)">Reset</button>
-        <span class="ml-1">Count: <span class="badge badge-light">{{ counter }}</span></span>
+        <button class="btn btn-xs btn-primary resetButton" v-on:click="setCounter(0, $event)">Reset</button>
+        <button class="btn btn-primary increaseButton2" v-on:click="secondCounter++">
+          Inc 2 <span class="badge badge-light">+</span>
+        </button>
+        <div>
+            Count: <span class="badge badge-light">{{ counter }} | {{ secondCounter }}</span>
+        </div>
+        <div>
+            Result: <span class="badge badge-light">{{ result() }} | {{ output }}</span>
+        </div>
       </div>
-      <hr>
       <!-- events -->
       <div id="container"
-        class="border border-primary"
+        class="border border-primary grid-item-coords"
         v-on:mousemove="updateCoordinates"
-        style="max-width: 500px; min-height: 100px; text-align: center; display:flex; align-items: center;"
       >
         <p class="box">
           Coordinates: {{ x }} / {{ y }}
@@ -56,9 +96,8 @@
           v-on:keyup.enter.space="alertMe"
           placeholder="alerts on spaces or enters">
       </div>
-      <hr>
-      <div class="col-sm-2 col-form-label">
-        <input type="text" v-model="name">
+      <div class="centered border border-warning">
+        <input type="text" v-model="name" style="text-align: center;">
         <p>{{ name }}</p>
       </div>
     </div>
@@ -73,25 +112,31 @@
         counter: 0,
         x: 0,
         y: 0,
-        name: 'Daniel',
+        name: 'What\'s your name?',
+        secondCounter: 0,
+      },
+      computed: {
+        output: function() {
+          return this.secondCounter > 5 ? 'Greather than 5' : 'Smaller than 5'; // 5 is kinda smaller than 5
+        }
       },
       methods: {
         sayHello() {
           this.title = 'Hello!';
           return this.title;
         },
-        increase() {
-          ++this.counter;
-        },
-        decrease() {
-          --this.counter;
+        result() {
+          return this.counter > 5 ? 'Greather than 5' : 'Smaller than 5'; // 5 is kinda smaller than 5
         },
         setCounter(value, event) {
           // easter egg
-          if (event.shiftKey)
+          if (event.shiftKey){
             this.counter += 100;
-          else
+            this.result = 'Greater than 5';
+          } else {
             this.counter = value;
+            this.result = this.counter > 5 ? 'Greather than 5' : 'Smaller than 5';
+          }
         },
         updateCoordinates(event) {
           this.x = event.clientX;
