@@ -56,6 +56,11 @@
           v-on:keyup.enter.space="alertMe"
           placeholder="alerts on spaces or enters">
       </div>
+      <hr>
+      <div class="col-sm-2 col-form-label">
+        <input type="text" v-model="name">
+        <p>{{ name }}</p>
+      </div>
     </div>
   </div>
   <script>
@@ -68,6 +73,7 @@
         counter: 0,
         x: 0,
         y: 0,
+        name: 'Daniel',
       },
       methods: {
         sayHello() {
