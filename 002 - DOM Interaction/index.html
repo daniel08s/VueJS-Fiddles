@@ -152,6 +152,12 @@
           return this.secondCounter > 5 ? 'Greather than 5' : 'Smaller than 5'; // 5 is kinda smaller than 5
         }
       },
+      watch: {
+        secondCounter() {
+          const vm = this; // save the this variable to be used inside the closure
+          setTimeout(() => vm.secondCounter = 0, 3000);
+        }
+      },
       methods: {
         sayHello() {
           this.title = 'Hello!';
